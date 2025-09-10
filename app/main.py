@@ -4,7 +4,8 @@ from typing import List, Dict, Union
 class Person:
     people = {}
 
-    def __init__(self, name: str, age: int, wife_name: str = None, husband_name: str = None) -> None:
+    def __init__(self, name: str, age: int, wife_name: str = None,
+                 husband_name: str = None) -> None:
         self.name = name
         self.age = age
         self.wife = None
@@ -20,7 +21,9 @@ class Person:
         pass
 
 
-def create_person_list(people_data: List[Dict[str, Union[str, int]]]) -> List[Person]:
+def create_person_list(
+    people_data: List[Dict[str, Union[str, int]]]
+) -> List[Person]:
     person_objects = []
     for person in people_data:
         name = person["name"]
@@ -28,7 +31,10 @@ def create_person_list(people_data: List[Dict[str, Union[str, int]]]) -> List[Pe
         wife_name = person.get("wife", None)
         husband_name = person.get("husband", None)
 
-        person_obj = Person(name, age, wife_name, husband_name)
+        person_obj = Person(
+            name, age, wife_name,
+            husband_name
+        )
         person_objects.append(person_obj)
 
     return person_objects
