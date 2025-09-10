@@ -25,16 +25,14 @@ class Pessoa:
         return f"Pessoa(nome={self.nome})"
 
 
-pessoa1 = Pessoa("John",
-                 nome_da_esposa="Jane")
-pessoa2 = Pessoa("Jane",
-                 nome_do_marido="John")
+pessoa1 = Pessoa("João")
+pessoa2 = Pessoa("Jane", nome_do_marido="João")
 pessoa3 = Pessoa("Alice")
 
 print(pessoa1.nome)
-print(pessoa1.esposa.nome)
 print(pessoa2.nome)
 print(pessoa2.marido.nome)
+print(pessoa3.nome)
 
 try:
     print(pessoa3.esposa)
