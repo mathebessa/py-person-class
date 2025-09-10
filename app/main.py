@@ -1,41 +1,41 @@
+from typing import List, \
+    Dict, Union
+
 class Person:
     people = {}
 
-    def __init__(
-            self,
-            name: str,
-            age: int,
-            wife_name: str = None,
-            husband_name: str = None,
-    ) -> None:
+    def __init__(self, name: str,
+                 age: int, wife_name: str = None,
+                 husband_name: str = None):
         self.name = name
         self.age = age
+        self.wife_name = wife_name
+        self.husband_name = husband_name
+        self.wife = None
+        self.husband = None
         Person.people[name] = self
 
-        if wife_name is not None:
-            if wife_name not in Person.people:
-                raise ValueError(
-                    f"The person {wife_name} has not been registered."
-                )
-            self.wife = Person.people[wife_name]
-
-        if husband_name is not None:
-            if husband_name not in Person.people:
-                raise ValueError(
-                    f"The person {husband_name} has not been registered."
-                )
-            self.husband = Person.people[husband_name]
-
-    def __str__(self) -> str:
-        return f"Person(name={self.name}, age={self.age})"
+    def set_spouse(self):
+        if self.wife_name and \
+           self.wife_name in Person.people:
+            self.wife = Person.people[self.wife_name]
+        if self.husband_name and \
+           self.husband_name in Person.people:
+            self.husband = Person.people[self.husband_name]
 
 
-def create_person_list(people_data: list) -> list:
-    for person_data in people_data:
-        name = person_data["name"]
-        age = person_data["age"]
-        wife_name = person_data.get("wife")
-        husband_name = person_data.get("husband")
+def create_person_list(people_data: \
+    List[Dict[str, Union[str, int]]]) -> List[Person]:
+    person_objects = {}
+    for person in people_data:
+        name = person["name"]
+        age = person["age"]
+        wife_name = person.get("wife", None)
+        husband_name = person.get("husband", None)
+        person_objects[name] = \
+            Person(name, age, wife_name, husband_name)
 
-        Person(name, age, wife_name, husband_name)
-    return list(Person.people.values())
+    for person in person_objects.values():
+        person.set_spouse()
+
+    return list(person_objects.values())
