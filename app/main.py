@@ -32,9 +32,11 @@ pessoa3 = Pessoa("Alice")
 print(pessoa1.nome)
 print(pessoa2.nome)
 print(pessoa2.marido.nome)
-print(pessoa3.nome)
 
 try:
-    print(pessoa3.esposa)
+    if hasattr(pessoa3, "esposa"):
+        print(pessoa3.esposa.nome)
+    else:
+        print("pessoa3 não tem esposa.")
 except AttributeError as e:
     print("AttributeError:", e)
