@@ -22,7 +22,7 @@ class Pessoa:
             self.marido = Pessoa.pessoas[nome_do_marido]
 
     def __str__(self) -> str:
-        return f'Pessoa(nome={self.nome})'
+        return f"Pessoa(nome={self.nome})"
 
 
 pessoa1 = Pessoa("John",
