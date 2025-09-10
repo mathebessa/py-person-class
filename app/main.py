@@ -1,32 +1,32 @@
-class Pessoa:
-    pessoas = {}
+class Person:
+    people = {}
 
     def __init__(
         self,
-        nome: str,
-        nome_da_esposa: str = None,
-        nome_do_marido: str = None,
+        name: str,
+        wife_name: str = None,
+        husband_name: str = None,
     ) -> None:
-        self.nome = nome
-        Pessoa.pessoas[nome] = self
+        self.name = name
+        Person.people[name] = self
 
-        if nome_da_esposa is not None:
-            if nome_da_esposa not in Pessoa.pessoas:
+        if wife_name is not None:
+            if wife_name not in Person.people:
                 raise ValueError(
-                    f"A pessoa {nome_da_esposa} não foi registrada."
+                    f"The person {wife_name} has not been registered."
                 )
-            self.esposa = Pessoa.pessoas[nome_da_esposa]
+            self.wife = Person.people[wife_name]
 
-        if nome_do_marido is not None:
-            if nome_do_marido not in Pessoa.pessoas:
+        if husband_name is not None:
+            if husband_name not in Person.people:
                 raise ValueError(
-                    f"A pessoa {nome_do_marido} não foi registrada."
+                    f"The person {husband_name} has not been registered."
                 )
-            self.marido = Pessoa.pessoas[nome_do_marido]
+            self.husband = Person.people[husband_name]
 
     def __str__(self) -> str:
-        return f"Pessoa(nome={self.nome})"
+        return f"Person(name={self.name})"
 
 
 def create_person_list(names: list) -> list:
-    return [Pessoa(name) for name in names]
+    return [Person(name) for name in names]
