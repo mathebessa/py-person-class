@@ -21,4 +21,4 @@ def create_person_list(
             person_instance.wife = Person.people[wife_name]
         if husband_name:
             person_instance.husband = Person.people[husband_name]
-    return persons
+    return person
