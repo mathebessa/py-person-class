@@ -1,12 +1,13 @@
 from typing import List, \
     Dict, Union
 
+
 class Person:
     people = {}
 
     def __init__(self, name: str,
                  age: int, wife_name: str = None,
-                 husband_name: str = None):
+                 husband_name: str = None) -> None:
         self.name = name
         self.age = age
         self.wife_name = wife_name
@@ -15,14 +16,13 @@ class Person:
         self.husband = None
         Person.people[name] = self
 
-    def set_spouse(self):
+    def set_spouse(self) -> None:
         if self.wife_name and \
            self.wife_name in Person.people:
             self.wife = Person.people[self.wife_name]
         if self.husband_name and \
            self.husband_name in Person.people:
             self.husband = Person.people[self.husband_name]
-
 
 def create_person_list(people_data: \
     List[Dict[str, Union[str, int]]]) -> List[Person]:
