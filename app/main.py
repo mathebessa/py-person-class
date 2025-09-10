@@ -10,14 +10,15 @@ class Person:
 def create_person_list(
     people_data: list[dict[str, str | int | None]]
 ) -> list[Person]:
-    persons = [Person(p["name"], p["age"]) for p in people_data]
+    persons = [Person(person["name"], person["age"])
+               for person in people_data]
 
-    for p in people_data:
-        person = Person.people[p["name"]]
-        wife = p.get("wife")
-        husband = p.get("husband")
-        if wife:
-            person.wife = Person.people[wife]
-        if husband:
-            person.husband = Person.people[husband]
+    for person_dict in people_data:
+        person_instance = Person.people[person_dict["name"]]
+        wife_name = person_dict.get("wife")
+        husband_name = person_dict.get("husband")
+        if wife_name:
+            person_instance.wife = Person.people[wife_name]
+        if husband_name:
+            person_instance.husband = Person.people[husband_name]
     return persons
