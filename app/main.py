@@ -21,7 +21,8 @@ class Person:
             self.husband = Person.people[self.husband_name]
 
 
-def create_person_list(people_data: List[Dict[str, Union[str, int]]]) -> List[Person]:
+def create_person_list(
+        people_data: List[Dict[str, Union[str, int]]]) -> List[Person]:
     person_objects = {}
     for person in people_data:
         name = person["name"]
