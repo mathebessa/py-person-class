@@ -1,9 +1,12 @@
 class Pessoa:
     pessoas = {}
 
-    def __init__(self, nome: str,
-                 nome_da_esposa: str = None,
-                 nome_do_marido: str = None) -> None:
+    def __init__(
+        self,
+        nome: str,
+        nome_da_esposa: str = None,
+        nome_do_marido: str = None,
+    ) -> None:
         self.nome = nome
         Pessoa.pessoas[nome] = self
 
@@ -25,18 +28,5 @@ class Pessoa:
         return f"Pessoa(nome={self.nome})"
 
 
-pessoa1 = Pessoa("João")
-pessoa2 = Pessoa("Jane", nome_do_marido="João")
-pessoa3 = Pessoa("Alice")
-
-print(pessoa1.nome)
-print(pessoa2.nome)
-print(pessoa2.marido.nome)
-
-try:
-    if hasattr(pessoa3, "esposa"):
-        print(pessoa3.esposa.nome)
-    else:
-        print("pessoa3 não tem esposa.")
-except AttributeError as e:
-    print("AttributeError:", e)
+def create_person_list(names: list) -> list:
+    return [Pessoa(name) for name in names]
