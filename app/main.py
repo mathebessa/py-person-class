@@ -1,7 +1,7 @@
 class Person:
     people = {}
 
-    def __init__(self, name: str, wife_name: str = None, husband_name: str = None):
+    def __init__(self, name: str, wife_name: str = None, husband_name: str = None) -> None:
         self.name = name
         Person.people[name] = self
 
