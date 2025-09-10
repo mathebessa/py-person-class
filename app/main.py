@@ -22,9 +22,9 @@ class Person:
 
     def __getattr__(self, name: str) -> Any:
         if name == "wife" and self.wife is None:
-            raise AttributeError(f"{self.name} does not have a wife.")
+            return None  # Não lançar erro se não houver esposa
         if name == "husband" and self.husband is None:
-            raise AttributeError(f"{self.name} does not have a husband.")
+            return None  # Não lançar erro se não houver marido
         return object.__getattr__(self, name)
 
 
