@@ -1,8 +1,10 @@
 class Person:
     people = {}
 
-    def __init__(self, name: str, wife_name: str = None,
-husband_name: str = None) -> None:
+    def __init__(self,
+                 name: str,
+                 wife_name: str = None,
+                 husband_name: str = None) -> None:
         self.name = name
         Person.people[name] = self
 
@@ -10,6 +12,9 @@ husband_name: str = None) -> None:
             self.wife = Person.people[wife_name]
         if husband_name is not None:
             self.husband = Person.people[husband_name]
+
+    def __str__(self) -> str:
+        return f"Person(name={self.name})"
 
 
 person1 = Person("John", wife_name="Jane")
