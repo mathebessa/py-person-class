@@ -20,6 +20,12 @@ class Person:
         if self.husband_name and self.husband_name in Person.people:
             self.husband = Person.people[self.husband_name]
 
+    def __getattr__(self, name: str):
+        if name == "wife" and self.wife is None:
+            raise AttributeError(f"{self.name} does not have a wife.")
+        if name == "husband" and self.husband is None:
+            raise AttributeError(f"{self.name} does not have a husband.")
+        return object.__getattr__(self, name)
 
 def create_person_list(
         people_data: List[Dict[str, Union[str, int]]]) -> List[Person]:
@@ -35,3 +41,4 @@ def create_person_list(
         person.set_spouse()
 
     return list(person_objects.values())
+
