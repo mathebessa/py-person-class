@@ -1,4 +1,4 @@
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Any
 
 
 class Person:
@@ -8,19 +8,9 @@ class Person:
                  husband_name: str = None) -> None:
         self.name = name
         self.age = age
-        self._wife = None
-        self._husband = None
         Person.people[name] = self
-
-        if wife_name:
-            self._wife_name = wife_name
-        else:
-            self._wife_name = None
-
-        if husband_name:
-            self._husband_name = husband_name
-        else:
-            self._husband_name = None
+        self._wife_name = wife_name
+        self._husband_name = husband_name
 
     def set_spouse(self) -> None:
         if self._wife_name:
@@ -39,15 +29,27 @@ class Person:
                     f"{self.name} has no husband named {self._husband_name}"
                 )
 
+        # Remover os atributos temporários depois da ligação
+        del self._wife_name
+        del self._husband_name
+
+    def __getattr__(self, attr: str) -> Any:
+        if attr == "wife" and not hasattr(self, "_wife"):
+            raise AttributeError(f"{self.name} does not have a wife")
+        elif attr == "husband" and not hasattr(self, "_husband"):
+            raise AttributeError(f"{self.name} does not have a husband")
+
+        return super().__getattr__(attr)
+
     @property
     def wife(self) -> "Person":
-        if self._wife:
+        if hasattr(self, "_wife"):
             return self._wife
         raise AttributeError(f"{self.name} does not have a wife")
 
     @property
     def husband(self) -> "Person":
-        if self._husband:
+        if hasattr(self, "_husband"):
             return self._husband
         raise AttributeError(f"{self.name} does not have a husband")
 
