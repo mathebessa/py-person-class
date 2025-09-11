@@ -7,6 +7,8 @@ class Person:
     def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
+        self.wife: Union[Person, None] = None
+        self.husband: Union[Person, None] = None
         Person.people[name] = self
 
     def set_spouse(
@@ -16,7 +18,6 @@ class Person:
     ) -> None:
         if wife_name is not None and wife_name in Person.people:
             self.wife = Person.people[wife_name]
-
         if husband_name is not None and husband_name in Person.people:
             self.husband = Person.people[husband_name]
 
@@ -24,16 +25,13 @@ class Person:
 def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
-    Person.people.clear()  # limpa antes de criar novas instâncias
-
+    Person.people.clear()
     person_objects = [
         Person(person["name"], person["age"]) for person in people_data
     ]
-
     for person_obj, person in zip(person_objects, people_data):
         person_obj.set_spouse(
             wife_name=person.get("wife"),
             husband_name=person.get("husband"),
         )
-
     return person_objects
