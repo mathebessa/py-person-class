@@ -15,11 +15,14 @@ class Person:
         husband_name: Union[str, None] = None,
     ) -> None:
         if wife_name is not None and wife_name != "":
-            if wife_name in Person.people:
-                self.wife = Person.people[wife_name]
+            spouse = Person.people.get(wife_name)
+            if spouse:
+                object.__setattr__(self, "wife", spouse)
+
         if husband_name is not None and husband_name != "":
-            if husband_name in Person.people:
-                self.husband = Person.people[husband_name]
+            spouse = Person.people.get(husband_name)
+            if spouse:
+                object.__setattr__(self, "husband", spouse)
 
 
 def create_person_list(
