@@ -4,46 +4,35 @@ from typing import List, Dict, Union
 class Person:
     people = {}
 
-    def __init__(
-            self,
-            name: str,
-            age: int,
-            wife_name: str = None,
-            husband_name: str = None,
-    ) -> None:
+    def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
         Person.people[name] = self
-        self._wife_name = wife_name
-        self._husband_name = husband_name
 
-    def set_spouse(self) -> None:
-        if self._wife_name is not None and self._wife_name in Person.people:
-            setattr(self, "wife", Person.people[self._wife_name])
-        if (
-                self._husband_name is not None
-                and self._husband_name in Person.people
-        ):
-            setattr(self, "husband", Person.people[self._husband_name])
+    def set_spouse(
+        self,
+        wife_name: str = None,
+        husband_name: str = None,
+    ) -> None:
+        if wife_name is not None and wife_name in Person.people:
+            setattr(self, "wife", Person.people[wife_name])
 
-        del self._wife_name
-        del self._husband_name
+        if husband_name is not None and husband_name in Person.people:
+            setattr(self, "husband", Person.people[husband_name])
 
 
 def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
     person_objects = [
-        Person(
-            person["name"],
-            person["age"],
-            person.get("wife", None),
-            person.get("husband", None),
-        )
+        Person(person["name"], person["age"])
         for person in people_data
     ]
 
-    for person_obj in person_objects:
-        person_obj.set_spouse()
+    for person_obj, person in zip(person_objects, people_data):
+        person_obj.set_spouse(
+            wife_name=person.get("wife"),
+            husband_name=person.get("husband"),
+        )
 
     return person_objects
