@@ -24,13 +24,16 @@ class Person:
 def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
-    Person.people.clear()
+    Person.people.clear()  # limpa antes de criar novas instâncias
+
     person_objects = [
         Person(person["name"], person["age"]) for person in people_data
     ]
+
     for person_obj, person in zip(person_objects, people_data):
         person_obj.set_spouse(
             wife_name=person.get("wife"),
             husband_name=person.get("husband"),
         )
+
     return person_objects
