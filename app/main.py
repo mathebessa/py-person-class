@@ -2,7 +2,6 @@ from typing import List, Dict, Union
 
 
 class Person:
-    __slots__ = ("name", "age", "__dict__")
     people: Dict[str, "Person"] = {}
 
     def __init__(self, name: str, age: int) -> None:
