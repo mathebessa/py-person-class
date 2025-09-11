@@ -7,8 +7,6 @@ class Person:
     def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
-        self.wife: Union[Person, None] = None
-        self.husband: Union[Person, None] = None
         Person.people[name] = self
 
     def set_spouse(
