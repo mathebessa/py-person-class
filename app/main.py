@@ -2,11 +2,13 @@ from typing import List, Dict, Union
 
 
 class Person:
-    people: Dict[str, "Person"] = {}
+    people: Dict[str, "Person"]
 
     def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
+        if not hasattr(Person, "people"):
+            Person.people = {}
         Person.people[name] = self
 
     def set_spouse(
@@ -35,19 +37,3 @@ def create_person_list(
             husband_name=person.get("husband"),
         )
     return person_objects
-
-
-people_data = [
-    {"name": "Joey", "age": 30},
-    {"name": "Rachel", "age": 28, "husband": "Ross"},
-    {"name": "Ross", "age": 30, "wife": "Rachel"}
-]
-
-people = create_person_list(people_data)
-
-joey = next(p for p in people if p.name == "Joey")
-
-try:
-    print(joey.wife)
-except AttributeError:
-    print("AttributeError levantado corretamente para Joey.wife")
