@@ -32,15 +32,6 @@ class Person:
         del self._wife_name
         del self._husband_name
 
-    def __getattr__(self, name: str) -> str:
-        if name in ("wife", "husband"):
-            raise AttributeError(
-                f"{self.name} does not have a {name}."
-            )
-        raise AttributeError(
-            f"'{self.__class__.__name__}' object has no attribute '{name}'"
-        )
-
 
 def create_person_list(
         people_data: List[Dict[str, Union[str, int]]]
