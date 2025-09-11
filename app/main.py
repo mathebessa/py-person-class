@@ -2,7 +2,7 @@ from typing import List, Dict, Union
 
 
 class Person:
-    people = {}
+    people: Dict[str, "Person"] = {}
 
     def __init__(self, name: str, age: int) -> None:
         self.name = name
@@ -11,22 +11,21 @@ class Person:
 
     def set_spouse(
         self,
-        wife_name: str = None,
-        husband_name: str = None,
+        wife_name: Union[str, None] = None,
+        husband_name: Union[str, None] = None,
     ) -> None:
         if wife_name is not None and wife_name in Person.people:
-            setattr(self, "wife", Person.people[wife_name])
+            self.wife = Person.people[wife_name]
 
         if husband_name is not None and husband_name in Person.people:
-            setattr(self, "husband", Person.people[husband_name])
+            self.husband = Person.people[husband_name]
 
 
 def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
     person_objects = [
-        Person(person["name"], person["age"])
-        for person in people_data
+        Person(person["name"], person["age"]) for person in people_data
     ]
 
     for person_obj, person in zip(person_objects, people_data):
