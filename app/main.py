@@ -2,13 +2,11 @@ from typing import List, Dict, Union
 
 
 class Person:
-    people: Dict[str, "Person"]
+    people: Dict[str, "Person"] = {}
 
     def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
-        if not hasattr(Person, "people"):
-            Person.people = {}
         Person.people[name] = self
 
     def set_spouse(
@@ -16,10 +14,10 @@ class Person:
         wife_name: Union[str, None] = None,
         husband_name: Union[str, None] = None,
     ) -> None:
-        if wife_name:
+        if wife_name is not None and wife_name != "":
             if wife_name in Person.people:
                 self.wife = Person.people[wife_name]
-        if husband_name:
+        if husband_name is not None and husband_name != "":
             if husband_name in Person.people:
                 self.husband = Person.people[husband_name]
 
