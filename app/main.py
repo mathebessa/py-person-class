@@ -24,7 +24,7 @@ class Person:
 def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
-    Person.people.clear()
+    Person.people.clear()  # limpa antes de criar as pessoas
 
     person_objects = [
         Person(person["name"], person["age"]) for person in people_data
