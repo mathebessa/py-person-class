@@ -14,9 +14,18 @@ class Person:
         wife_name: Union[str, None] = None,
         husband_name: Union[str, None] = None,
     ) -> None:
-        if isinstance(wife_name, str) and wife_name and wife_name in Person.people:
+        if (
+            isinstance(wife_name, str)
+            and wife_name
+            and wife_name in Person.people
+        ):
             setattr(self, "wife", Person.people[wife_name])
-        if isinstance(husband_name, str) and husband_name and husband_name in Person.people:
+
+        if (
+            isinstance(husband_name, str)
+            and husband_name
+            and husband_name in Person.people
+        ):
             setattr(self, "husband", Person.people[husband_name])
 
 
@@ -24,12 +33,16 @@ def create_person_list(
     people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
     Person.people.clear()
+
     person_objects = [
-        Person(person["name"], person["age"]) for person in people_data
+        Person(person["name"], person["age"])
+        for person in people_data
     ]
+
     for person_obj, person in zip(person_objects, people_data):
         person_obj.set_spouse(
             wife_name=person.get("wife"),
             husband_name=person.get("husband"),
         )
+
     return person_objects
