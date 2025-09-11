@@ -2,7 +2,7 @@ from typing import List, Dict, Union
 
 
 class Person:
-    __slots__ = ("name", "age")
+    __slots__ = ("name", "age", "__dict__")
     people: Dict[str, "Person"] = {}
 
     def __init__(self, name: str, age: int) -> None:
@@ -15,10 +15,12 @@ class Person:
         wife_name: Union[str, None] = None,
         husband_name: Union[str, None] = None,
     ) -> None:
-        if wife_name is not None and wife_name in Person.people:
-            object.__setattr__(self, "wife", Person.people[wife_name])
-        if husband_name is not None and husband_name in Person.people:
-            object.__setattr__(self, "husband", Person.people[husband_name])
+        if wife_name:
+            if wife_name in Person.people:
+                self.wife = Person.people[wife_name]
+        if husband_name:
+            if husband_name in Person.people:
+                self.husband = Person.people[husband_name]
 
 
 def create_person_list(
