@@ -16,18 +16,9 @@ class Person:
         if self._wife_name is not None:
             if self._wife_name in Person.people:
                 setattr(self, "wife", Person.people[self._wife_name])
-            else:
-                raise AttributeError(
-                    f"{self.name} has no wife named {self._wife_name}"
-                )
-
         if self._husband_name is not None:
             if self._husband_name in Person.people:
                 setattr(self, "husband", Person.people[self._husband_name])
-            else:
-                raise AttributeError(
-                    f"{self.name} has no husband named {self._husband_name}"
-                )
 
         del self._wife_name
         del self._husband_name
