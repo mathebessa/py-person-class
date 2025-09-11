@@ -13,7 +13,7 @@ class Person:
         self._husband_name = husband_name
 
     def set_spouse(self) -> None:
-        if self._wife_name:
+        if self._wife_name is not None:
             if self._wife_name in Person.people:
                 setattr(self, "wife", Person.people[self._wife_name])
             else:
@@ -21,7 +21,7 @@ class Person:
                     f"{self.name} has no wife named {self._wife_name}"
                 )
 
-        if self._husband_name:
+        if self._husband_name is not None:
             if self._husband_name in Person.people:
                 setattr(self, "husband", Person.people[self._husband_name])
             else:
