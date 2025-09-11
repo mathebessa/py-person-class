@@ -13,33 +13,28 @@ class Person:
         self._husband_name = husband_name
 
     def set_spouse(self) -> None:
-        if self._wife_name is not None:
-            if self._wife_name in Person.people:
-                setattr(self, "wife", Person.people[self._wife_name])
-        if self._husband_name is not None:
-            if self._husband_name in Person.people:
-                setattr(self, "husband", Person.people[self._husband_name])
+        if self._wife_name is not None and self._wife_name in Person.people:
+            setattr(self, "wife", Person.people[self._wife_name])
+        if (
+                self._husband_name is not None
+                and self._husband_name in Person.people
+        ):
+            setattr(self, "husband", Person.people[self._husband_name])
 
         del self._wife_name
         del self._husband_name
 
 
 def create_person_list(
-        people_data: List[Dict[str, Union[str, int]]]
+    people_data: List[Dict[str, Union[str, int]]]
 ) -> List[Person]:
-    person_objects = []
-
-    for person in people_data:
-        name = person["name"]
-        age = person["age"]
-        wife_name = person.get("wife", None)
-        husband_name = person.get("husband", None)
-
-        person_obj = Person(
-            name, age, wife_name,
-            husband_name
+    person_objects = [
+        Person(
+            person["name"], person["age"],
+            person.get("wife", None), person.get("husband", None)
         )
-        person_objects.append(person_obj)
+        for person in people_data
+    ]
 
     for person_obj in person_objects:
         person_obj.set_spouse()
