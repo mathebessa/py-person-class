@@ -22,11 +22,19 @@ def create_person_list(
 
     for person_obj, person in zip(person_objects, people_data):
         wife_name = person.get("wife")
-        if isinstance(wife_name, str) and wife_name and wife_name in Person.people:
+        if (
+            isinstance(wife_name, str)
+            and wife_name
+            and wife_name in Person.people
+        ):
             setattr(person_obj, "wife", Person.people[wife_name])
 
         husband_name = person.get("husband")
-        if isinstance(husband_name, str) and husband_name and husband_name in Person.people:
+        if (
+            isinstance(husband_name, str)
+            and husband_name
+            and husband_name in Person.people
+        ):
             setattr(person_obj, "husband", Person.people[husband_name])
 
     return person_objects
