@@ -35,3 +35,19 @@ def create_person_list(
             husband_name=person.get("husband"),
         )
     return person_objects
+
+
+people_data = [
+    {"name": "Joey", "age": 30},
+    {"name": "Rachel", "age": 28, "husband": "Ross"},
+    {"name": "Ross", "age": 30, "wife": "Rachel"}
+]
+
+people = create_person_list(people_data)
+
+joey = next(p for p in people if p.name == "Joey")
+
+try:
+    print(joey.wife)
+except AttributeError:
+    print("AttributeError levantado corretamente para Joey.wife")
