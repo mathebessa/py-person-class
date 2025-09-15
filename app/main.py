@@ -1,40 +1,29 @@
-from typing import List, Dict, Union
-
-
 class Person:
-    people: Dict[str, "Person"] = {}
+    people: dict[str, "Person"] = {}
 
     def __init__(self, name: str, age: int) -> None:
-        self.name = name
-        self.age = age
+        self.name: str = name
+        self.age: int = age
         Person.people[name] = self
 
 
-def create_person_list(
-    people_data: List[Dict[str, Union[str, int]]]
-) -> List[Person]:
+def create_person_list(people: list[dict]) -> list[Person]:
     Person.people.clear()
+    person_list: list[Person] = []
 
-    person_objects = [
-        Person(person["name"], person["age"])
-        for person in people_data
-    ]
+    for person_data in people:
+        name: str = person_data["name"]
+        age: int = person_data["age"]
+        person = Person(name, age)
+        person_list.append(person)
 
-    for person_obj, person in zip(person_objects, people_data):
-        wife_name = person.get("wife")
-        if (
-            isinstance(wife_name, str)
-            and wife_name
-            and wife_name in Person.people
-        ):
-            setattr(person_obj, "wife", Person.people[wife_name])
+    for person_data in people:
+        person: Person = Person.people[person_data["name"]]
 
-        husband_name = person.get("husband")
-        if (
-            isinstance(husband_name, str)
-            and husband_name
-            and husband_name in Person.people
-        ):
-            setattr(person_obj, "husband", Person.people[husband_name])
+        if "wife" in person_data and person_data["wife"] is not None:
+            person.wife = Person.people[person_data["wife"]]
 
-    return person_objects
+        if "husband" in person_data and person_data["husband"] is not None:
+            person.husband = Person.people[person_data["husband"]]
+
+    return person_list
